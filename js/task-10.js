@@ -10,6 +10,11 @@ const createBtn = document.querySelector('button[data-create]');
 const destroyBtn = document.querySelector('button[data-destroy]');
 
 createBtn.addEventListener('click', () => {
+  if (!input.value) {
+    alert('Забув число?');
+  } else if (!Number(input.value)) {
+    alert('Вважай, що вже намалював!');
+  }
   createBoxes(input.value);
 });
 destroyBtn.addEventListener('click', () => {
@@ -18,11 +23,17 @@ destroyBtn.addEventListener('click', () => {
 });
 
 function createBoxes(amount) {
+  let elementWidth = 30;
+  let elementHeight = 30;
+  if (divContainer.lastElementChild) {
+    elementWidth = parseInt(divContainer.lastElementChild.style.width) + 10;
+    elementHeight = parseInt(divContainer.lastElementChild.style.height) + 10;
+  }
   const boxItems = [];
   for (let i = 0; i < amount; i += 1) {
     const item = document.createElement('div');
-    item.style.width = `${30 + i * 10}px`;
-    item.style.height = `${30 + i * 10}px`;
+    item.style.width = `${elementWidth + i * 10}px`;
+    item.style.height = `${elementHeight + i * 10}px`;
     item.style.backgroundColor = getRandomHexColor();
     boxItems.push(item);
   }
